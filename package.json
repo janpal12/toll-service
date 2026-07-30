@@ -1,13 +1,23 @@
 {
   "name": "toll-admin-panel",
   "version": "1.0.0",
+  "description": "Toll Road EU - Admin FastPanel",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint src --ext ts,tsx"
+    "install-local": "npm install && npm run build"
   },
+  "keywords": [
+    "toll",
+    "admin",
+    "fastpanel",
+    "roads",
+    "stripe"
+  ],
+  "author": "TollRoad EU",
+  "license": "COMMERCIAL",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -33,5 +43,9 @@
     "tailwindcss": "^3.3.0",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }
