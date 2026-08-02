@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import Sidebar from './components/Sidebar'
 import Dashboard from './pages/Dashboard'
 import Roads from './pages/Roads'
@@ -9,7 +8,7 @@ import Transponders from './pages/Transponders'
 import Transactions from './pages/Transactions'
 import Payment from './pages/Payment'
 import Settings from './pages/Settings'
-import Login from './pages/Login'
+import Landing from './pages/Landing'
 import Header from './components/Header'
 import './styles/globals.css'
 
@@ -22,12 +21,10 @@ interface User {
 }
 
 const App: React.FC = () => {
-  const { i18n } = useTranslation()
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Проверяем авторизацию
     const savedUser = localStorage.getItem('user')
     if (savedUser) {
       try {
@@ -43,7 +40,7 @@ const App: React.FC = () => {
     localStorage.removeItem('user')
     localStorage.removeItem('userRole')
     setUser(null)
-    window.location.href = '/login'
+    window.location.href = '/'
   }
 
   if (isLoading) {
@@ -61,8 +58,7 @@ const App: React.FC = () => {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Landing />} />
         </Routes>
       </BrowserRouter>
     )
