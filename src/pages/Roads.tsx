@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
+import { v4 as uuidv4 } from 'uuid'
 import Button from '../components/Button'
 import Modal from '../components/Modal'
-import { v4 as uuid } from 'uuid'
 
 interface Road {
   id: string
@@ -16,66 +15,27 @@ interface Road {
 }
 
 const Roads: React.FC = () => {
-  const { t } = useTranslation()
   const [roads, setRoads] = useState<Road[]>([
-    // Франция
-    { id: uuid(), country: '🇫🇷 France', name: 'A6 Paris - Lyon', price: 0.095, operator: 'VINCI', length: 427, currency: '€' },
-    { id: uuid(), country: '🇫🇷 France', name: 'A7 Lyon - Marseille', price: 0.088, operator: 'VINCI', length: 298, currency: '€' },
-    { id: uuid(), country: '🇫🇷 France', name: 'A1 Paris - Lille', price: 0.092, operator: 'SANEF', length: 215, currency: '€' },
-    { id: uuid(), country: '🇫🇷 France', name: 'A9 Bordeaux - Spain', price: 0.085, operator: 'VINCI', length: 504, currency: '€' },
-    { id: uuid(), country: '🇫🇷 France', name: 'A3 Paris - Reims', price: 0.090, operator: 'SANEF', length: 163, currency: '€' },
-    
-    // Германия
-    { id: uuid(), country: '🇩🇪 Germany', name: 'A1 Berlin - Hamburg', price: 0.33, operator: 'Toll Collect', length: 288, currency: '€' },
-    { id: uuid(), country: '🇩🇪 Germany', name: 'A2 Berlin - Dortmund', price: 0.33, operator: 'Toll Collect', length: 515, currency: '€' },
-    { id: uuid(), country: '🇩🇪 Germany', name: 'A3 Cologne - Frankfurt', price: 0.33, operator: 'Toll Collect', length: 173, currency: '€' },
-    { id: uuid(), country: '🇩🇪 Germany', name: 'A5 Frankfurt - Basel', price: 0.33, operator: 'Toll Collect', length: 294, currency: '€' },
-    { id: uuid(), country: '🇩🇪 Germany', name: 'A9 Munich - Berlin', price: 0.33, operator: 'Toll Collect', length: 529, currency: '€' },
-    
-    // Италия
-    { id: uuid(), country: '🇮🇹 Italy', name: 'A1 Milan - Rome', price: 0.103, operator: 'Autostrade', length: 526, currency: '€' },
-    { id: uuid(), country: '🇮🇹 Italy', name: 'A4 Turin - Venice', price: 0.098, operator: 'Autostrade', length: 436, currency: '€' },
-    { id: uuid(), country: '🇮🇹 Italy', name: 'A2 Rome - Naples', price: 0.095, operator: 'Autostrade', length: 242, currency: '€' },
-    { id: uuid(), country: '🇮🇹 Italy', name: 'A7 Genoa - Rome', price: 0.101, operator: 'Autostrade', length: 509, currency: '€' },
-    
-    // Испания
-    { id: uuid(), country: '🇪🇸 Spain', name: 'A-7 Costa del Sol', price: 0.037, operator: 'Abertis', length: 579, currency: '€' },
-    { id: uuid(), country: '🇪🇸 Spain', name: 'AP-2 Barcelona - Zaragoza', price: 0.055, operator: 'Abertis', length: 306, currency: '€' },
-    { id: uuid(), country: '🇪🇸 Spain', name: 'AP-7 Barcelona - France', price: 0.045, operator: 'Abertis', length: 149, currency: '€' },
-    
-    // Польша
-    { id: uuid(), country: '🇵🇱 Poland', name: 'A2 Warsaw - Gdansk', price: 0.28, operator: 'e-TOLL', length: 348, currency: 'PLN' },
-    { id: uuid(), country: '🇵🇱 Poland', name: 'A4 Warsaw - Wroclaw', price: 0.25, operator: 'e-TOLL', length: 348, currency: 'PLN' },
-    { id: uuid(), country: '🇵🇱 Poland', name: 'A1 Gdansk - Plock', price: 0.26, operator: 'e-TOLL', length: 180, currency: 'PLN' },
-    
-    // Чехия
-    { id: uuid(), country: '🇨🇿 Czech Republic', name: 'D1 Prague - Brno', price: 0.0, operator: 'ŘSD', length: 196, currency: 'CZK (Vignette)' },
-    { id: uuid(), country: '🇨🇿 Czech Republic', name: 'D2 Prague - Ostrava', price: 0.0, operator: 'ŘSD', length: 384, currency: 'CZK (Vignette)' },
-    
-    // Венгрия
-    { id: uuid(), country: '🇭🇺 Hungary', name: 'M1 Budapest - Győr', price: 0.0, operator: 'ÁKK', length: 125, currency: 'HUF (Vignette)' },
-    { id: uuid(), country: '🇭🇺 Hungary', name: 'M7 Budapest - Balaton', price: 0.0, operator: 'ÁKK', length: 120, currency: 'HUF (Vignette)' },
-    
-    // Австрия
-    { id: uuid(), country: '🇦🇹 Austria', name: 'A1 Vienna - Salzburg', price: 0.0, operator: 'ASFiNAG', length: 324, currency: 'EUR (Vignette)' },
-    { id: uuid(), country: '🇦🇹 Austria', name: 'A10 Salzburg - Munich', price: 0.0, operator: 'ASFiNAG', length: 108, currency: 'EUR (Vignette)' },
-    
-    // Швейцария
-    { id: uuid(), country: '🇨🇭 Switzerland', name: 'N1 Basel - Zurich', price: 0.0, operator: 'ASTRA', length: 99, currency: 'CHF (Vignette)' },
-    { id: uuid(), country: '🇨🇭 Switzerland', name: 'N2 Zurich - St. Gallen', price: 0.0, operator: 'ASTRA', length: 76, currency: 'CHF (Vignette)' },
-    
-    // Бельгия
-    { id: uuid(), country: '🇧🇪 Belgium', name: 'E5 Brussels - Antwerp', price: 0.0, operator: 'SPW', length: 43, currency: 'EUR (HGV Tax)' },
-    
-    // Нидерланды
-    { id: uuid(), country: '🇳🇱 Netherlands', name: 'A1 Amsterdam - Almelo', price: 0.0, operator: 'RWS', length: 119, currency: 'EUR (Vignette for HGV)' },
+    { id: uuidv4(), country: '🇫🇷 France', name: 'A6 Paris - Lyon', price: 0.095, operator: 'VINCI', length: 427, currency: '€' },
+    { id: uuidv4(), country: '🇫🇷 France', name: 'A7 Lyon - Marseille', price: 0.088, operator: 'VINCI', length: 298, currency: '€' },
+    { id: uuidv4(), country: '🇫🇷 France', name: 'A1 Paris - Lille', price: 0.092, operator: 'SANEF', length: 215, currency: '€' },
+    { id: uuidv4(), country: '🇫🇷 France', name: 'A9 Bordeaux - Spain', price: 0.085, operator: 'VINCI', length: 504, currency: '€' },
+    { id: uuidv4(), country: '🇫🇷 France', name: 'A3 Paris - Reims', price: 0.090, operator: 'SANEF', length: 163, currency: '€' },
+    { id: uuidv4(), country: '🇩🇪 Germany', name: 'A1 Berlin - Hamburg', price: 0.33, operator: 'Toll Collect', length: 288, currency: '€' },
+    { id: uuidv4(), country: '🇩🇪 Germany', name: 'A2 Berlin - Dortmund', price: 0.33, operator: 'Toll Collect', length: 515, currency: '€' },
+    { id: uuidv4(), country: '🇩🇪 Germany', name: 'A3 Cologne - Frankfurt', price: 0.33, operator: 'Toll Collect', length: 173, currency: '€' },
+    { id: uuidv4(), country: '🇮🇹 Italy', name: 'A1 Milan - Rome', price: 0.103, operator: 'Autostrade', length: 526, currency: '€' },
+    { id: uuidv4(), country: '🇮🇹 Italy', name: 'A4 Turin - Venice', price: 0.098, operator: 'Autostrade', length: 436, currency: '€' },
+    { id: uuidv4(), country: '🇪🇸 Spain', name: 'A-7 Costa del Sol', price: 0.037, operator: 'Abertis', length: 579, currency: '€' },
+    { id: uuidv4(), country: '🇵🇱 Poland', name: 'A2 Warsaw - Gdansk', price: 28, operator: 'e-TOLL', length: 348, currency: 'PLN' },
+    { id: uuidv4(), country: '🇵🇱 Poland', name: 'A4 Warsaw - Wroclaw', price: 25, operator: 'e-TOLL', length: 348, currency: 'PLN' },
   ])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState({ country: '', name: '', price: 0, operator: '', length: 0, currency: '' })
 
   const handleAdd = () => {
     if (formData.country && formData.name) {
-      setRoads([...roads, { id: uuid(), ...formData }])
+      setRoads([...roads, { id: uuidv4(), ...formData }])
       setFormData({ country: '', name: '', price: 0, operator: '', length: 0, currency: '' })
       setIsModalOpen(false)
     }
@@ -93,7 +53,7 @@ const Roads: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          {t('roads.title')} ({roads.length})
+          🛣️ Roads ({roads.length})
         </motion.h1>
         <Button label="+ Add Road" onClick={() => setIsModalOpen(true)} />
       </div>
@@ -128,7 +88,7 @@ const Roads: React.FC = () => {
                   <td className="px-6 py-4 text-gray-300">{road.length}</td>
                   <td className="px-6 py-4">
                     <span className="text-green-400 font-semibold">
-                      {road.price === 0 ? 'Vignette' : `${road.price.toFixed(2)} ${road.currency}`}
+                      {road.price.toFixed(2)} {road.currency}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-gray-400">{road.operator}</td>
@@ -156,14 +116,14 @@ const Roads: React.FC = () => {
         <div className="space-y-4">
           <input
             type="text"
-            placeholder="Country (e.g., 🇫🇷 France)"
+            placeholder="Country"
             value={formData.country}
             onChange={(e) => setFormData({ ...formData, country: e.target.value })}
             className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 text-white focus:border-blue-500 outline-none"
           />
           <input
             type="text"
-            placeholder="Road Name (e.g., A6 Paris - Lyon)"
+            placeholder="Road Name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 text-white focus:border-blue-500 outline-none"
@@ -177,7 +137,7 @@ const Roads: React.FC = () => {
           />
           <input
             type="number"
-            placeholder="Price (€/km)"
+            placeholder="Price"
             value={formData.price}
             onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
             className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 text-white focus:border-blue-500 outline-none"
@@ -191,7 +151,7 @@ const Roads: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Currency (€, PLN, CZK, etc.)"
+            placeholder="Currency"
             value={formData.currency}
             onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
             className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 text-white focus:border-blue-500 outline-none"

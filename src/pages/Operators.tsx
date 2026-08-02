@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
 import Button from '../components/Button'
 import Modal from '../components/Modal'
-import { v4 as uuid } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 interface Operator {
   id: string
@@ -14,18 +13,18 @@ interface Operator {
 }
 
 const Operators: React.FC = () => {
-  const { t } = useTranslation()
   const [operators, setOperators] = useState<Operator[]>([
-    { id: uuid(), name: 'VINCI', country: 'FR', website: 'vinci.com', commission: 3 },
-    { id: uuid(), name: 'Toll Collect', country: 'DE', website: 'toll-collect.de', commission: 3 },
-    { id: uuid(), name: 'e-TOLL', country: 'PL', website: 'etoll.gov.pl', commission: 3 },
+    { id: uuidv4(), name: 'VINCI', country: '🇫🇷 France', website: 'vinci.com', commission: 3 },
+    { id: uuidv4(), name: 'Toll Collect', country: '🇩🇪 Germany', website: 'toll-collect.de', commission: 3 },
+    { id: uuidv4(), name: 'Autostrade', country: '🇮🇹 Italy', website: 'autostrade.it', commission: 3 },
+    { id: uuidv4(), name: 'e-TOLL', country: '🇵🇱 Poland', website: 'etoll.gov.pl', commission: 3 },
   ])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState({ name: '', country: '', website: '', commission: 3 })
 
   const handleAdd = () => {
     if (formData.name && formData.country) {
-      setOperators([...operators, { id: uuid(), ...formData }])
+      setOperators([...operators, { id: uuidv4(), ...formData }])
       setFormData({ name: '', country: '', website: '', commission: 3 })
       setIsModalOpen(false)
     }
@@ -34,8 +33,14 @@ const Operators: React.FC = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold text-white">{t('menu.operators')}</h1>
-        <Button label="Add Operator" onClick={() => setIsModalOpen(true)} />
+        <motion.h1
+          className="text-4xl font-bold text-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          🚗 Operators ({operators.length})
+        </motion.h1>
+        <Button label="+ Add Operator" onClick={() => setIsModalOpen(true)} />
       </div>
 
       <motion.div
@@ -73,7 +78,7 @@ const Operators: React.FC = () => {
           />
           <input
             type="text"
-            placeholder="Country Code"
+            placeholder="Country"
             value={formData.country}
             onChange={(e) => setFormData({ ...formData, country: e.target.value })}
             className="w-full px-4 py-2 bg-gray-700 rounded-lg border border-gray-600 text-white focus:border-blue-500 outline-none"

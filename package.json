@@ -9,14 +9,8 @@
     "preview": "vite preview",
     "install-local": "npm install && npm run build"
   },
-  "keywords": [
-    "toll",
-    "admin",
-    "fastpanel",
-    "roads",
-    "stripe"
-  ],
-  "author": "TollRoad EU",
+  "keywords": ["toll", "admin", "fastpanel", "roads", "stripe"],
+  "author": "Toll Road EU",
   "license": "COMMERCIAL",
   "dependencies": {
     "react": "^18.2.0",
@@ -37,6 +31,7 @@
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "^4.2.0",
     "typescript": "^5.3.0",
     "vite": "^5.0.0",
